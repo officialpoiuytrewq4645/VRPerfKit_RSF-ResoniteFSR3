@@ -3,8 +3,10 @@
 #include "win_header_sane.h"
 #include "hooks.h"
 #include "hotkeys.h"
+#ifndef VRPERFKIT_NO_OCULUS
 #include "oculus/oculus_hooks.h"
 #include "oculus/oculus_manager.h"
+#endif
 #include "openvr/openvr_hooks.h"
 #include <mutex>
 
@@ -31,7 +33,9 @@ namespace {
 	void InstallVrHooks() {
 		std::lock_guard<std::mutex> lock (g_hookInstallMutex);
 		vrperfkit::InstallOpenVrHooks();
+#ifndef VRPERFKIT_NO_OCULUS
 		vrperfkit::InstallOculusHooks();
+#endif
 		vrperfkit::InstallD3D11Hooks();
 		vrperfkit::InstallDXGIHooks();
 	}
@@ -88,7 +92,7 @@ namespace {
 
 		vrperfkit::OpenLogFile(vrperfkit::g_basePath / "vrperfkit_RSF.log");
 		LOG_INFO << "===============================";
-		LOG_INFO << "VR Performance Toolkit RSF v3.2";
+		LOG_INFO << "VR Performance Toolkit RSF v3.2 (FnTable/multi-interface hook patch)";
 		LOG_INFO << "===============================\n";
 
 		vrperfkit::LoadConfig(vrperfkit::g_basePath / "vrperfkit_RSF.yml");
@@ -111,7 +115,9 @@ namespace {
 
 	void ShutdownVrPerfkit() {
 		LOG_INFO << "Shutting down\n";
+#ifndef VRPERFKIT_NO_OCULUS
 		vrperfkit::g_oculus.Shutdown();
+#endif
 		vrperfkit::hooks::Shutdown();
 		vrperfkit::FlushLog();
 	}

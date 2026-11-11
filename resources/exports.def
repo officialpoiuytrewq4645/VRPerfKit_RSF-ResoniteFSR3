@@ -21,3 +21,8 @@ EXPORTS
 
 	; exports for vrclient.dll
 	VRClientCoreFactory PRIVATE
+
+	; ResoniteFSR3 integration
+	ResoniteFSR3_SetSubmitViewportScale
+	ResoniteFSR3_SetSubmitTextureOverride
+	ResoniteFSR3_SetSubmitFlipVertical

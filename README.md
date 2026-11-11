@@ -1,3 +1,19 @@
+> **ResoniteFSR3 fork.** This is a patched copy of [RavenSystem/VRPerfKit_RSF](https://github.com/RavenSystem/VRPerfKit_RSF)
+> used by [ResoniteFSR3](https://github.com/officialpoiuytrewq4645/ResoniteFSR3). The patches were written with an AI coding
+> assistant (Claude) and tested in Resonite. Changes:
+>
+> - Hooks every IVRCompositor interface version, including the `FnTable:` variants, with the correct method slots
+>   (stock RSF only hooks the first interface it sees, so it does nothing in Resonite, whose Unity 2019 renderer submits
+>   through `IVRCompositor_022`).
+> - Exports `ResoniteFSR3_SetSubmitTextureOverride`, `ResoniteFSR3_SetSubmitFlipVertical` and
+>   `ResoniteFSR3_SetSubmitViewportScale`, which let ResoniteFSR3 swap in its full-resolution FSR 3.1 output at submit.
+> - CMake: adds the radial density mask shaders that were missing from the build, and a `VRPERFKIT_WITH_OCULUS`
+>   option to build without the Oculus SDK.
+> - Restores the red debug tint for the FSR 1 debug hotkeys.
+>
+> Build: `cmake -B build -DVRPERFKIT_WITH_OCULUS=OFF` then `cmake --build build --config Release --target vrperfkit`
+> (Visual Studio 2022) → `build/Release/dxgi.dll`.
+
 VR Performance Toolkit RavenSystem's Fork
 =========================================
 

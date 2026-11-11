@@ -44,7 +44,8 @@ void main(uint3 LocalThreadId : SV_GroupThreadID, uint3 WorkGroupId : SV_GroupID
 		pos.x -= 8u;
 		Sharpen(pos);
 	} else {
-		AF4 mul = AF4(1, 1, 1, 1);
+		// Debug mode: tint the area outside the FSR radius red (restored from upstream vrperfkit)
+		AF4 mul = DebugMode ? AF4(1, 0.6, 0.6, 1) : AF4(1, 1, 1, 1);
 		OutputTexture[pos] = mul * InputTexture[pos];
 		pos.x += 8u;
 		OutputTexture[pos] = mul * InputTexture[pos];
